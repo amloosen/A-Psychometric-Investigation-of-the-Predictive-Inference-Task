@@ -21,6 +21,7 @@ library(psych)
 library(broom)
 library(tidyr)
 library(cowplot)
+library(data.table)   
 options(scipen=999) 
 options(max.print=25000)
 
@@ -882,8 +883,8 @@ for (i in seq_along(aft_indices)) {
 #1b)LR difference####
 icc_diffbehav_lrSD_Aftmat <- matrix(NA,1,3)
 icc_diffbehav_lrSD_Aftmat_tmp <- psych::ICC(x= cbind(Game_all_singl$behav_lrSDDiffevenAft.x,Game_all_singl$behav_lrSDDiffevenAft.y),alpha=.05,lmer=TRUE)
-icc_diffbehav_lrSD_Aftmat[1,1] <- icc_diffbehav_lrSD_Aftmat_tmp$results[5,2]
-icc_diffbehav_lrSD_Aftmat[1,c(2:3)] <- icc_diffbehav_lrSD_Aftmat_tmp$results[5,c(7,8)]
+icc_diffbehav_lrSD_Aftmat[1,1] <- icc_diffbehav_lrSD_Aftmat_tmp$results[2,2]
+icc_diffbehav_lrSD_Aftmat[1,c(2:3)] <- icc_diffbehav_lrSD_Aftmat_tmp$results[2,c(7,8)]
 
 #1c)LR - Distance to CP####
 DistCPLRModAllCoefs = merge(DistCPLR1SumStats,DistCPLR2SumStats,by=c('id'))
@@ -891,8 +892,8 @@ DistCPLRModAllCoefs <- DistCPLRModAllCoefs[with(DistCPLRModAllCoefs, order(id)),
 
 DistCPLRMod<- matrix(NA,1,3)
 DistCPLRMod_tmp<- psych::ICC(x = cbind(DistCPLRModAllCoefs$distance_toCP.x, DistCPLRModAllCoefs$distance_toCP.y),alpha=.05,lmer=TRUE)#no variance between
-DistCPLRMod[1,1] <- DistCPLRMod_tmp$results[5,2]
-DistCPLRMod[1,c(2:3)] <- DistCPLRMod_tmp$results[5,c(7,8)]
+DistCPLRMod[1,1] <- DistCPLRMod_tmp$results[2,2]
+DistCPLRMod[1,c(2:3)] <- DistCPLRMod_tmp$results[2,c(7,8)]
 
 #1d)corr PE ActUp####
 icc_circcor_ActPE  <- data.frame(matrix(NA, 9, 3))
