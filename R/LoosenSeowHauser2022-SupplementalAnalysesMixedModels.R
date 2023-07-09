@@ -455,6 +455,7 @@ for (i in seq_along(var_indicesAct)) {
 ##Test-retest reliability####
 #For Confidence adjustments regression with normative predictors####
 #fit the t1 model again only with ids that also completed t2
+check_idConf= unique(finalGameQuestData_t2$id)
 finalGameQuestData_pt1Mod_tmp <- finalGameQuestData_pt1Mod[finalGameQuestData_pt1Mod$id %in% unique(unlist(check_idConf)),]
 lmConf1_tmp <-lmer(conf.sc ~ shiftX1.sc+shiftX2.sc+shiftX2X3.sc+shiftX4.sc+age.sc+gender+total_iq.sc+(1+shiftX2.sc+shiftX2.sc+shiftX2X3.sc+shiftX4.sc|id),control= lmerControl(optimizer="bobyqa"), verbose=0, data=finalGameQuestData_pt1Mod_tmp)
 #get the coefficients into one dataset with the corresponding subject id
