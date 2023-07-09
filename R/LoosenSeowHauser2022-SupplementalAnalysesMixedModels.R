@@ -15,6 +15,7 @@ setwd("~/Documents/GitHub/Probabilistic-Inference-Task-Analysis/R")
 library(reshape2) 
 library(data.table)
 library(psych)
+library(lme4)
 options(scipen=999) 
 options(max.print=25000) 
 
