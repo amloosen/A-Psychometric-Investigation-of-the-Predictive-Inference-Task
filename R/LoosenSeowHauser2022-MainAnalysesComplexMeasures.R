@@ -26,8 +26,8 @@ options(max.print=25000) #set max print for e.gg., displaying data frames
 quest_pt1 = data.frame(read.csv("Table_questPIT_pt1.csv",header = T))
 quest_t2 = data.frame(read.csv("Table_questPIT_alltp.csv",header = T))
 #game data
-Game_pt1= data.frame(read.csv("Table_gamePIT_pt1.csv",header = T))#dataset t1 quest and predictive inference task
-Game_t2= data.frame(read.csv("Table_gamePIT_t2.csv",header = T))#dataset t1 and t2 combined, quest and predictive inference task
+Game_pt1 = data.frame(read.csv("Table_gamePIT_pt1.csv",header = T))#dataset t1 quest and predictive inference task
+Game_t2 = data.frame(read.csv("Table_gamePIT_t2.csv",header = T))#dataset t1 and t2 combined, quest and predictive inference task
 
 #create odd and even dataset based on trials - before z-scoring to avoid artificial smoothing 
 odd_indexes1 <- which(Game_pt1$nTrial %% 2 == 1)# Create row indicator
