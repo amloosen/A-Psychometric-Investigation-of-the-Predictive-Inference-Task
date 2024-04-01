@@ -86,12 +86,6 @@ for (i in before:after) {
   game_t2_rel[[paste0("Game_all_", ifelse(i >= 0, "aft", "bef"), abs(i))]] <- Game_all_relativeCP[Game_all_relativeCP$nTrial_rel == i, ]
 }
 
-# Loop through the desired range
-game_t2_rel_IntCons <- list()
-for (i in before:after) {
-  # Subset the data based on nTrial_rel value
-  game_t2_rel_IntCons[[paste0("Game_t2_", ifelse(i >= 0, "aft", "bef"), abs(i))]] <- Game_t2_relativeCP[Game_t2_relativeCP$nTrial_rel == i, ]
-}
 #get a single entry per id data for each time point (trial == 1)####
 Game_t2_singl<- Game_t2[!duplicated(Game_t2$id), ]
 Game_pt1_singl <- Game_pt1[!duplicated(Game_pt1$id), ]
@@ -200,7 +194,7 @@ ciCPt2.conf <- matrix(NA, nrow = length(bef_indices) + length(aft_indices), ncol
 # Iterate over bef indices
 for (i in seq_along(bef_indices)) {
   bef_index <- bef_indices[i]
-  game_t2_bef <- game_t2_rel_IntCons[[paste0("Game_all_", bef_index)]]
+  game_t2_bef <- game_t2_rel[[paste0("Game_all_", bef_index)]]
   
   rCPt2.conf[i] <- IntCons_r(game_t2_bef$median_conf_even_t2,
                                  game_t2_bef$median_conf_odd_t2,
@@ -213,7 +207,7 @@ for (i in seq_along(bef_indices)) {
 
 for (i in seq_along(aft_indices)) {
   aft_index <- aft_indices[i]
-  game_t2_aft <- game_t2_rel_IntCons[[paste0("Game_all_", aft_index)]]
+  game_t2_aft <- game_t2_rel[[paste0("Game_all_", aft_index)]]
   
   rCPt2.conf[i+4] <- IntCons_r(game_t2_aft$median_conf_even_t2,
                                 game_t2_aft$median_conf_odd_t2,
@@ -236,7 +230,34 @@ conf_internCons_UnStabl_t2[2,3:4] <- IntCons_r(Game_t2_relativeCP$median_conf_ev
 #learning rate####
 # Initialize empty variables to store the results
 rCPt2.lr <- matrix(NA, nrow = length(bef_indices) + length(aft_indices), ncol = 1)
+ciCPt2.lr <- matrix(NA, nrow = length(bef_indices) + length(aft_indices), ncol = 2)
 
+# Iterate over bef indices
+for (i in seq_along(bef_indices)) {
+  bef_index <- bef_indices[i]
+  game_t2_bef <- game_t2_rel[[paste0("Game_all_", bef_index)]]
+  
+  rCPt2.lr[i] <- IntCons_r(game_t2_bef$median_behav_lr_even_t2,
+                             game_t2_bef$median_behav_lr_odd_t2,
+                             game_t2_bef)[1, 1]
+  
+  ciCPt2.lr[i,] <- IntCons_r(game_t2_bef$median_behav_lr_even_t2,
+                               game_t2_bef$median_behav_lr_odd_t2,
+                               game_t2_bef)[, 2]
+}
+
+for (i in seq_along(aft_indices)) {
+  aft_index <- aft_indices[i]
+  game_t2_aft <- game_t2_rel[[paste0("Game_all_", aft_index)]]
+  
+  rCPt2.lr[i+4] <- IntCons_r(game_t2_aft$median_behav_lr_even_t2,
+                               game_t2_aft$median_behav_lr_odd_t2,
+                               game_t2_aft)[1, 1]
+  
+  ciCPt2.lr[i+4,] <- IntCons_r(game_t2_aft$median_behav_lr_even_t2,
+                                 game_t2_aft$median_behav_lr_odd_t2,
+                                 game_t2_aft)[, 2]
+}
 #stable versus unstable task phases
 lr_internCons_UnStabl_t2 <- matrix(NA, nrow = 2, ncol = 4)
 lr_internCons_UnStabl_t2[1,1] <- "Stable"
