@@ -30,7 +30,6 @@ Game_pt1_relativeCP <- Game_pt1_relativeCP_tmp[with(Game_pt1_relativeCP_tmp,orde
 Game_t2_relativeCP_tmp= data.frame(read.csv("Table_gamePIT_t2_relativeCP.csv",header = T))
 Game_t2_relativeCP <- Game_t2_relativeCP_tmp[with(Game_t2_relativeCP_tmp,order(id,nTrial_rel)),] 
 
-################
 ##Functions ####
 ################
 ##Spearman Brown corrected Pearson correlation for internal consistency
